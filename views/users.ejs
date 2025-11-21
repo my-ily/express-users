@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المستخدمين</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e8f4f8;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-section h2 {
+            color: #16a085;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-add {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-add:hover {
+            background: #229954;
+        }
+
+        .btn-reset {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-edit {
+            background: #f39c12;
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.9em;
+        }
+
+        .btn-edit:hover {
+            background: #e67e22;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.9em;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+
+        .btn-save {
+            background: #16a085;
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.9em;
+        }
+
+        .btn-save:hover {
+            background: #138d75;
+        }
+
+        .btn-cancel {
+            background: #7f8c8d;
+            color: white;
+            padding: 6px 15px;
+            font-size: 0.9em;
+        }
+
+        /* Users List */
+        .users-list {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .users-list h2 {
+            color: #16a085;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .user-item {
+            background: #ecf0f1;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-right: 4px solid #3498db;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-id {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .user-name {
+            color: #2c3e50;
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px;
+            font-size: 1.1em;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .edit-form {
+            background: #fff;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 2px solid #16a085;
+        }
+
+        .edit-form h3 {
+            color: #16a085;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .stats {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .stats span {
+            color: #3498db;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👥 إدارة المستخدمين</h1>
+
+        <!-- Stats -->
+        <div class="stats">
+            إجمالي المستخدمين: <span><%= users.length %></span>
+        </div>
+
+        <!-- Add User Form -->
+        <div class="form-section">
+            <h2>➕ إضافة مستخدم جديد</h2>
+            <form method="POST" action="/users">
+                <div class="form-group">
+                    <label>اسم المستخدم:</label>
+                    <input type="text" name="name" required placeholder="أدخل اسم المستخدم">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-add">إضافة</button>
+                    <button type="reset" class="btn btn-reset">مسح</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Users List -->
+        <div class="users-list">
+            <h2>قائمة المستخدمين</h2>
+            
+            <% if(users && users.length > 0) { %>
+                <% users.forEach((user) => { %>
+                    <% if(user && user.name && user.id) { %>
+                        <div class="user-item">
+                            <div class="user-info">
+                                <div class="user-id">ID: <%= user.id %></div>
+                                <div class="user-name"><%= user.name %></div>
+                            </div>
+                            
+                            <div class="user-actions">
+                                <button onclick="editUser(<%= user.id %>)" class="btn btn-edit"> تعديل</button>
+                                <form method="POST" action="/users/<%= user.id %>?_method=DELETE" style="display: inline;" onsubmit="return confirm('هل أنت متأكد؟')">
+                                    <button type="submit" class="btn btn-delete"> حذف</button>
+                                </form>
+                            </div>
+
+                            <!-- Edit Form -->
+                            <div id="editForm<%= user.id %>" class="edit-form hidden">
+                                <h3>تعديل المستخدم</h3>
+                                <form method="POST" action="/users/<%= user.id %>?_method=PUT">
+                                    <div class="form-group">
+                                        <label>اسم المستخدم:</label>
+                                        <input type="text" name="name" value="<%= user.name %>" required>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-save"> حفظ</button>
+                                        <button type="button" onclick="cancelEdit(<%= user.id %>)" class="btn btn-cancel"> إلغاء</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }); %>
+            <% } else { %>
+                <div class="empty-state">
+                    <p>لا يوجد مستخدمين حالياً</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+        function editUser(id) {
+            document.querySelectorAll('.edit-form').forEach(form => {
+                form.classList.add('hidden');
+            });
+            const form = document.getElementById('editForm' + id);
+            if(form) {
+                form.classList.remove('hidden');
+            }
+        }
+
+        function cancelEdit(id) {
+            const form = document.getElementById('editForm' + id);
+            if(form) {
+                form.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
