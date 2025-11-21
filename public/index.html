@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر المنتجات</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        .product-id {
+            background: #667eea;
+            color: white;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        .product-name {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-size: 1.8em;
+            color: #764ba2;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .product-description {
+            color: #666;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+        .view-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+        .view-btn:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ متجر المنتجات</h1>
+        <div class="products-grid">
+            <a href="/product/1" class="product-card">
+                <span class="product-id">#1</span>
+                <h2 class="product-name">لابتوب ماك بوك</h2>
+                <div class="product-price">4,999 ريال</div>
+                <p class="product-description">لابتوب عالي الأداء مع معالج M2 وسرعة فائقة</p>
+                <span class="view-btn">عرض التفاصيل →</span>
+            </a>
+
+            <a href="/product/2" class="product-card">
+                <span class="product-id">#2</span>
+                <h2 class="product-name">آيفون 15 برو</h2>
+                <div class="product-price">4,499 ريال</div>
+                <p class="product-description">هاتف ذكي بمواصفات عالية وكاميرا احترافية</p>
+                <span class="view-btn">عرض التفاصيل →</span>
+            </a>
+
+            <a href="/product/3" class="product-card">
+                <span class="product-id">#3</span>
+                <h2 class="product-name">ساعة أبل ووتش</h2>
+                <div class="product-price">1,299 ريال</div>
+                <p class="product-description">ساعة ذكية لتتبع الصحة واللياقة البدنية</p>
+                <span class="view-btn">عرض التفاصيل →</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
