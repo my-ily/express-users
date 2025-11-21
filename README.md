@@ -1,6 +1,6 @@
 # Backend Training Project :D - Express.js
 
-## in this project we improve this feature:
+## This project includes:
 - CRUD Operations (Create, Read, Update, Delete)
 - EJS Templates
 - Form Handling (POST, PUT, DELETE)
